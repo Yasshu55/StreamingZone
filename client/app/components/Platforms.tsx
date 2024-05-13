@@ -4,6 +4,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FaTwitch } from "react-icons/fa";
 
 
+
 export default function Platforms() {
   return (
     <div className='text-white bg-white'>
