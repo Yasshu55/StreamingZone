@@ -1,6 +1,7 @@
 import express from "express"
 import cors from 'cors'
 import AuthRoutes from './routes/authRoutes'
+import 'dotenv/config'
 
 const app = express();
 

@@ -1,5 +1,7 @@
 import prisma from "../config/db.config";
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken'
+import { constants } from "../constants";
 
 class UserController {
 
@@ -8,7 +10,7 @@ class UserController {
             const {username,email,password,rePass} = req.body
             
             if(!username || !email || !password || !rePass){
-                return res.status(400).json({msg:"Please enter all fields"})
+                return res.status(401).json({msg:"Please enter all fields"})
             }
 
             const userExists = await prisma.user.findFirst({
@@ -55,7 +57,7 @@ class UserController {
             const {email,password} = req.body;
 
             if(!email || !password){
-                return res.status(400).json({msg:"Enter all details"})
+                return res.status(401).json({msg:"Enter all details"})
             }
             const user = await prisma.user.findFirst({
                 where : {email:email}
@@ -68,8 +70,14 @@ class UserController {
             if(!isMatch){
                 return res.status(400).json({msg:"Wrong password!"})
             }
-            // const token = jwt.sign({id:user.id},process.env.JWT_SECRET,{expiresIn:"12h"})
-            const token = "jb6jnvdjkrhwu78hiwey"
+            
+            const payload = {
+                id : user.id,
+                name : user.name,
+                email : user.email,
+            }
+            const token = jwt.sign(payload,constants.Jwtsecret,{expiresIn:"12h"})
+            
             return res.status(200).json({msg:"Login Successful",token:token})
 
         } catch (error) {
