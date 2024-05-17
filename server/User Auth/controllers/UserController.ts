@@ -84,6 +84,18 @@ class UserController {
             console.log(error);
         }
     }
+
+    static async user (req:any,res:any){
+        try {
+            const user = req.user
+            
+            return res.status(200).json({user:user})
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+    
 }
 
 export  default UserController
