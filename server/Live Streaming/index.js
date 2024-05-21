@@ -3,6 +3,7 @@ import express from 'express'
 import {Server} from 'socket.io'
 import cors from 'cors'
 import { spawn } from 'child_process'
+import startLiveStream from './producer'
 
 const app = express();
 app.use(cors());
@@ -55,6 +56,7 @@ io.on("connection", (socket) =>{
 
     socket.on("binarystream", event =>{
         console.log("BinaryStream receiving from frontend",event);
+        startLiveStream();
 
         ffmpegProcess.stdin.write(event, (err) =>{
             console.log("Errror - ",err);
