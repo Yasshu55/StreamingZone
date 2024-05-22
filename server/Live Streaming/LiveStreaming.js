@@ -54,6 +54,14 @@ class LiveStreaming {
             })
         })
     }
+
+    static async screenLiveStreaming(ytKey,fbKey,twitchKey){
+        try {
+            
+        } catch (error) {
+            console.log(err);
+        }
+    }
 }
 
 export default LiveStreaming

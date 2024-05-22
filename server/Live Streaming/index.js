@@ -2,7 +2,6 @@ import http from 'http'
 import express from 'express'
 import {Server} from 'socket.io'
 import cors from 'cors'
-import { Router } from 'express'
 import AuthRoutes from './routes/authRoutes.js'
 
 const app = express();
