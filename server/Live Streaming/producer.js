@@ -32,6 +32,4 @@ const startLiveStream = async () =>{
     }
 }
 
-startLiveStream().catch(console.error);
-
 export default startLiveStream
