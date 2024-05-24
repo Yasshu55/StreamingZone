@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 const server = http.createServer(app);
 export const io = new Server(server,{
     cors: {
@@ -16,7 +17,7 @@ export const io = new Server(server,{
     },
   });
 
-  app.use("/api",AuthRoutes)
+  app.use("/",AuthRoutes)
 
 server.listen(8000, ()=>{
     console.log("HTTP Server running on PORT 8000");

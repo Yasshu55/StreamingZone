@@ -4,6 +4,7 @@ import { io } from './index.js';
 class LiveStreaming {
 
     static async videoLiveStreaming(ytKey,fbKey,twitchKey){
+        let isTrue = false;
                     
         const options = [
             '-i',
@@ -46,7 +47,10 @@ class LiveStreaming {
 
             socket.on("binarystream", event =>{
                 console.log("BinaryStream receiving from frontend",event);
-                startLiveStream();
+                if(!isTrue){
+                    startLiveStream();
+                    isTrue = true
+                }
 
                 ffmpegProcess.stdin.write(event, (err) =>{
                     console.log("Errror - ",err);
