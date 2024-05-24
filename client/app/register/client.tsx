@@ -9,7 +9,7 @@ const Register = () => {
     const router = useRouter();
 
     const [formData,setFormData] = useState({
-        userName:"",
+        username:"",
         email:"",
         password:"",
         confirmPassword:""
@@ -22,7 +22,7 @@ const Register = () => {
     const handleSubmit = async (e : any) =>{
         e.preventDefault();
         try {
-            const res = await fetch('/register',{
+            const res = await fetch('http://localhost:5000/api/auth/register',{
                 method:'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,6 +41,8 @@ const Register = () => {
             router.push('/login')
         } catch (error : any) {
             console.error('Error signing up:', error.message);
+            alert("Unknown Error occured! Try again")
+            router.push('/register')
         }
     }
 
@@ -52,7 +54,7 @@ const Register = () => {
                     <div className="mb-4">
                         <input
                             type="text"
-                            name="userName"
+                            name="username"
                             placeholder="Username"
                             className="w-full border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-indigo-500"
                             onChange={handleChange}

@@ -13,7 +13,7 @@ export default function Platforms() {
     const[fbKey,setfbKey] = useState("");
     const[twitchKey,setTwitchKey] = useState("");
 
-    const ytHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const ytHandler = (e: any) => {
         try {
             const newValue = e.target.value;
             setYtKey(newValue);

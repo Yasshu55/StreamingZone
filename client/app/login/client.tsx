@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import '../globals.css'
-import Link from 'next/link'
 
 function Login() {
     const router = useRouter()
@@ -19,7 +18,7 @@ function Login() {
     const submitHandler = async (e : any) =>{
         e.preventDefault();
         try {
-            const res = await fetch('https://pixelspeak.onrender.com/api/login',{
+            const res = await fetch('http://localhost:5000/api/auth/login',{
                 method:'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -34,9 +33,11 @@ function Login() {
             console.log("Login data : ",data);
             localStorage.setItem('auth-token', data.token);
   
-            router.push('/upload')
+            router.push('/home')
         } catch (error : any ) {
             console.error('Error logging: ', error.message);
+            alert("Unknown Error occured! Try again")
+            router.push('/login')
         }
     }
 

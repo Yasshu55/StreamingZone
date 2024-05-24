@@ -4,15 +4,35 @@ import { useEffect, useState,useRef } from "react";
 import {io} from 'socket.io-client'
 import '../globals.css'
 import NavBar from "../components/NavBar";
+import { useRouter } from 'next/navigation'
 
 
 export default function Streaming() {
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('auth-token');
+    if (token === null) {
+      router.push("/login");
+    } else {
+      setIsAuthenticated(true);
+    }
+  }, [router]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      initializeStreamMedia();
+    }
+  }, [isAuthenticated]);
+
     const socket = io('http://localhost:8000/')
     const [media,setMedia] = useState<MediaStream>();
     const [isStart,setIsStart] = useState(false)
     const[isInitialized,setIsInitialized] = useState(false)
     const mediaStream = useRef<MediaStream | null>(null);   
     const overallMediaRecorder = useRef<MediaRecorder | null>(null);
+    
     
     const initializeStreamMedia = async () =>{
       try {
@@ -62,17 +82,15 @@ export default function Streaming() {
         }
       }
 
-    useEffect(() =>{        
-      initializeStreamMedia();
-    },[])
-    
-
   const handleStart = async () =>{
     try {
       initializeStreamMedia()
     } catch (error) {
         console.log(error);
     }
+  }
+  if (!isAuthenticated) {
+    return null;
   }
   
   return (
