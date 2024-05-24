@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import '../globals.css'
+import Link from 'next/link'
 
 function Login() {
     const router = useRouter()
@@ -71,7 +72,8 @@ function Login() {
                 </form>
             </div>
             <div className="mt-4">
-                <p className="text-white">No account? <button className="text-white underline" onClick={() => router.push('/signup')}>Sign up</button></p>
+                <p className="text-white">No account? <button className="text-white underline" onClick={() => router.push('/register')}>Sign up</button></p>
+                
             </div>
         </div>
     );

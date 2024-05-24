@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import '../globals.css'
+import Link from 'next/link'
 
 const Register = () => {
     const router = useRouter();
@@ -91,6 +92,11 @@ const Register = () => {
                         Submit
                     </button>
                 </form>
+                <br />
+                <p>
+                    Already have an account?
+                    <Link href="/login" className="text-indigo-500 hover:text-indigo-600 transition duration-300"> Login</Link>
+                </p>
             </div>
         </div>
     );

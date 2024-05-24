@@ -6,9 +6,12 @@ import {useState} from 'react'
 import { AiOutlineClose,AiOutlineMenu} from "react-icons/ai";
 import Link from 'next/link';
 import { FaRegUserCircle } from "react-icons/fa";
+import { useRouter } from 'next/navigation'
 
 export default function PlatformsClient() {
-  const [nav,setNav] = useState(false)
+    const router = useRouter();
+
+    const [nav,setNav] = useState(false)
 
   const handleNav = () =>{
       setNav(!nav)
