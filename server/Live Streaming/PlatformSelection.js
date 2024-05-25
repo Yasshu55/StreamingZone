@@ -5,7 +5,7 @@ class PlatformSelection{
         try {
             const {ytKey,fbKey,twitchKey} = req.body
             console.log("This is YtKey  : ",ytKey);
-            LiveStreaming.videoLiveStreaming(ytKey,fbKey,twitchKey)
+            LiveStreaming.liveStreaming(ytKey,fbKey,twitchKey)
 
             return res.status(200).json({msg:"Sent the required data"})
         } catch (error) {
@@ -17,9 +17,9 @@ class PlatformSelection{
         try {
             const {ytKey,fbKey,twitchKey} = req.body
             console.log("This is YtKey  : ",ytKey);
-            LiveStreaming.screenLiveStreaming(ytKey,fbKey,twitchKey)
+            LiveStreaming.liveStreaming(ytKey,fbKey,twitchKey)
 
-            // return res.status(200).json({msg:"Sent the required data"})
+            return res.status(200).json({msg:"Sent the required data"})
         } catch (error) {
             console.log(error);
         }

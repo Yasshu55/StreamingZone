@@ -19,7 +19,7 @@ export default function NavBar() {
         </Link>
             </h1>
         <ul className='hidden md:flex'>
-        <Link href="/">
+        <Link href="/home">
             <li className='p-4'>Home</li>
         </Link>
         <Link href="/">

@@ -3,7 +3,7 @@ import startLiveStream from './producer.js'
 import { io } from './index.js';
 class LiveStreaming {
 
-    static async videoLiveStreaming(ytKey,fbKey,twitchKey){
+    static async liveStreaming(ytKey,fbKey,twitchKey){
         let isTrue = false;
                     
         const options = [
@@ -51,21 +51,22 @@ class LiveStreaming {
                     startLiveStream();
                     isTrue = true
                 }
-
-                ffmpegProcess.stdin.write(event, (err) =>{
-                    console.log("Errror - ",err);
-                })
+                if (event && event.length > 0) {
+                    ffmpegProcess.stdin.write(event, (err) => {
+                        if (err) {
+                            console.error('Error writing to ffmpeg stdin:', err);
+                        }
+                    });
+                }
             })
+            socket.on('disconnect', () => {
+                console.log('Socket disconnected', socket.id);
+                ffmpegProcess.stdin.end();
+                ffmpegProcess.kill('SIGINT');
+            });
         })
     }
 
-    static async screenLiveStreaming(ytKey,fbKey,twitchKey){
-        try {
-            
-        } catch (error) {
-            console.log(err);
-        }
-    }
 }
 
 export default LiveStreaming

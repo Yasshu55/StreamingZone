@@ -5,6 +5,7 @@ import {io} from 'socket.io-client'
 import '../globals.css'
 import NavBar from "../components/NavBar";
 import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 
 export default function Streaming() {
@@ -32,25 +33,47 @@ export default function Streaming() {
     const[isInitialized,setIsInitialized] = useState(false)
     const mediaStream = useRef<MediaStream | null>(null);   
     const overallMediaRecorder = useRef<MediaRecorder | null>(null);
-    
+
+    const searchParams = useSearchParams()
+    const typeOfStream = searchParams.get("type");
     
     const initializeStreamMedia = async () =>{
       try {
-          if(!isInitialized){
-          setIsInitialized(true)
+        if (!isInitialized) {
+          setIsInitialized(true);
           const video = document.getElementById("user-video") as HTMLVideoElement;
-          const stream = await navigator.mediaDevices.getUserMedia({
-            video: true,
-            audio: true
-          })
-          mediaStream.current = stream
-          setMedia(stream)
+          let stream: MediaStream;
+
+          if (typeOfStream === "video") {
+            stream = await navigator.mediaDevices.getUserMedia({
+              video: true,
+              audio: true
+            });
+          } else if (typeOfStream === "screen") {
+            stream = await navigator.mediaDevices.getDisplayMedia({
+              video: true,
+              audio: true
+            });
+          } else {
+            throw new Error("Invalid stream type");
+          }
+          mediaStream.current = stream;
+          setMedia(stream);
           video.srcObject = stream;
         }
-        const mediaRecorder = new MediaRecorder(media!,{
+    } catch (error) {
+          console.error("Error accessing media devices:", error);
+        }
+      }
+
+    const sendMediaData = () =>{
+      try {
+        if(media){
+
+        const mediaRecorder = new MediaRecorder(media,{
           audioBitsPerSecond: 128000,
           videoBitsPerSecond: 2500000,
-      })
+        })
 
       if(!isStart){
         setIsStart(true)
@@ -60,10 +83,11 @@ export default function Streaming() {
           console.log("Entered MediaRecorder");
           
           if (typeof event.data === "undefined") return;
-          if (event.data.size === 0) return;
           
           console.log("Binary Stream available : ",event.data)
-          socket.emit("binarystream",event.data)
+          if (event.data.size > 0) {
+            socket.emit("binarystream", event.data);
+          }
         }
         overallMediaRecorder.current = mediaRecorder;
       } else {
@@ -72,19 +96,19 @@ export default function Streaming() {
           overallMediaRecorder.current.ondataavailable = null
           overallMediaRecorder.current.stop()
         }
-        // mediaStream.current = null;
         overallMediaRecorder.current = null;
         setIsStart(false);
         alert("Stopped the streamed! Congrats for streaming successfully!")
+      }      
+    }
+      } catch (error) {
+        console.log(error); 
       }
-        } catch (error) {
-          console.error("Error accessing media devices:", error);
-        }
-      }
+    }
 
   const handleStart = async () =>{
     try {
-      initializeStreamMedia()
+      sendMediaData()
     } catch (error) {
         console.log(error);
     }

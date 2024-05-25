@@ -7,9 +7,9 @@ class UserController {
 
     static async register(req:any,res:any){
         try {
-            const {username,email,password,rePass} = req.body
+            const {username,email,password,confirmPassword} = req.body
             
-            if(!username || !email || !password || !rePass){
+            if(!username || !email || !password || !confirmPassword){
                 return res.status(401).json({msg:"Please enter all fields"})
             }
 
@@ -23,7 +23,7 @@ class UserController {
                 return res.status(400).json({msg:"User already exists!"})
             }
 
-            if(password !== rePass){
+            if(password !== confirmPassword){
                 return res.status(400).json({msg:"Wrong password! Re-enter again"})
             }
 
@@ -77,6 +77,8 @@ class UserController {
                 email : user.email,
             }
             const token = jwt.sign(payload,constants.Jwtsecret,{expiresIn:"12h"})
+            console.log("Successfylly logged in - token : ",token);
+            
             
             return res.status(200).json({msg:"Login Successful",token:token})
 

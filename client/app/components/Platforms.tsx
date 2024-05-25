@@ -5,7 +5,6 @@ import { FaTwitch } from "react-icons/fa";
 import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 
-
 export default function Platforms() {
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -43,6 +42,13 @@ export default function Platforms() {
         }
     }
 
+    const goToStreamingPage = (typeOfStream : string) => {
+        const url = new URL('/streaming', window.location.href);
+        url.searchParams.append('type', typeOfStream);
+    
+        router.push(url.toString());
+      };
+
     const submitHandler = async (e : any) =>{
         try {
             e.preventDefault();
@@ -72,8 +78,14 @@ export default function Platforms() {
                 const data = await res.json();
                 console.log(data);
 
-                router.push("/streaming")
-                
+                // router.push({
+                //     pathname: '/streaming',
+                //     query: {
+                //         type: typeOfStream
+                //     }
+                // } as any)
+                goToStreamingPage(typeOfStream)
+
             } else if(typeOfStream === "screen") {
 
                 const res = await fetch('http://localhost:5000/api/live/screenStreaming',{
@@ -93,7 +105,14 @@ export default function Platforms() {
                 const data = await res.json();
                 console.log(data);
 
-                router.push("/streaming")
+                // router.push({
+                //     pathname: '/streaming',
+                //     query: {
+                //         type: typeOfStream
+                //     }
+                // } as any)
+
+                goToStreamingPage(typeOfStream)
             } else {
                 alert("Unknown error! Select a proper streaming type to continue")
                 router.push('/home')
@@ -131,9 +150,10 @@ export default function Platforms() {
                     <br />
                     <br />
                 </div>
-                <button className='bg-[#27ffbb] w-[120px] rounded-md font-medium my-3 mx-auto py-2 text-black' type='submit' onClick={submitHandler}>
-                    Submit
-                </button>
+
+                    <button className='bg-[#27ffbb] w-[120px] rounded-md font-medium my-3 mx-auto py-2 text-black' type='submit' onClick={submitHandler}>
+                        Submit
+                    </button>
             </form>
         </div>
     </div>
