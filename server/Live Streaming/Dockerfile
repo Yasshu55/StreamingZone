@@ -7,7 +7,7 @@ RUN /usr/bin/apt-get update && \
     /usr/bin/apt-get upgrade -y && \
     /usr/bin/apt-get install -y nodejs ffmpeg
 
-WORKDIR /home/app
+WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
