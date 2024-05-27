@@ -18,7 +18,7 @@ export default function PlatformsClient() {
       if(token === null){
         router.push("/login")
       }
-    },[])
+    },[router])
     
 
   const handleNav = () =>{

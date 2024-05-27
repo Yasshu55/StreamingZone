@@ -16,7 +16,7 @@ export default function HomeClient() {
     if(token === null){
       router.push("/login")
     }
-  },[])
+  },[router])
 
   return (
     <div>

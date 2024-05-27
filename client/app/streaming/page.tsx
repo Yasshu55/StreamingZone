@@ -1,10 +1,13 @@
-
-import React from 'react'
+import React, { Suspense } from 'react'
 import Streaming from './client'
 
 
 export default function page() {
   return (
-    <div><Streaming /></div>
+    <div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Streaming />
+    </Suspense>
+     </div>
   )
 }

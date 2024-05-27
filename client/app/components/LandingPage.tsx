@@ -10,7 +10,7 @@ export default function LandingPage() {
             <div>
                 <Link href="/register">
                 <button className='bg-[#f0a417] w-[200px] rounded-md font-medium my-6 mx-auto py-3 text-black'>
-                  Let's start
+                Let&apos;s start
                 </button>
                 </Link> 
             </div>
