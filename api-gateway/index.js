@@ -59,7 +59,7 @@ app.use(rateLimitAndTimeout);
 
 const services = [
     { route: '/api/auth', target: 'http://localhost:8001' }, // User auth service
-    { route: '/api/live', target: 'http://localhost:8000' }, // Live streaming service
+    { route: '/api/live', target: 'https://live-streaming-service-streamingzone.onrender.com' }, // Live streaming service
 ]
 
 services.forEach(({ route, target }) => {
