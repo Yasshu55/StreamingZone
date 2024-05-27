@@ -15,7 +15,8 @@ export default function Streaming() {
   const [isInitialized, setIsInitialized] = useState(false);
   const mediaStream = useRef<MediaStream | null>(null);
   const overallMediaRecorder = useRef<MediaRecorder | null>(null);
-  const socket = io();
+  const socket = io('https://live-streaming-service-streamingzone.onrender.com');
+
   const searchParams = useSearchParams();
   const typeOfStream = searchParams.get("type");
 
