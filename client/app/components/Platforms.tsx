@@ -61,7 +61,7 @@ export default function Platforms() {
             
             if(typeOfStream === "video"){ 
 
-                const res = await fetch('https://live-streaming-service-streamingzone.onrender.com/api/live/videoStreaming',{
+                const res = await fetch('https://streamingzone.onrender.com/api/live/videoStreaming',{
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
@@ -88,7 +88,7 @@ export default function Platforms() {
 
             } else if(typeOfStream === "screen") {
 
-                const res = await fetch('https://live-streaming-service-streamingzone.onrender.com/api/live/screenStreaming',{
+                const res = await fetch('https://streamingzone.onrender.com/api/live/screenStreaming',{
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
