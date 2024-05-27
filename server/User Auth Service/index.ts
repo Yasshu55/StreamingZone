@@ -8,9 +8,10 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cors());
+const port = process.env.PORT || 8001;
 
 app.use("/",AuthRoutes)
 
-app.listen(8001,() =>{
+app.listen(port,() =>{
     console.log("Listening on PORT : 8001");
 })
