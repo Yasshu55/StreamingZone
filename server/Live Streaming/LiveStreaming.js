@@ -36,7 +36,7 @@ class LiveStreaming {
             '-keyint_min', '25',
             '-crf', '25',
             '-pix_fmt', 'yuv420p',
-            '-f', 'flv', `rtmp://live-api-s.facebook.com:443/rtmp/${fbKey}`
+            '-f', 'flv', `rtmps://live-api-s.facebook.com:443/rtmp/${fbKey}`
         ];
 
         function startFfmpegProcess(options, platform) {
