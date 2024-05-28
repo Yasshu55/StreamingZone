@@ -39,6 +39,26 @@ class LiveStreaming {
             '-f', 'flv', `rtmps://live-api-s.facebook.com:443/rtmp/${fbKey}`
         ];
 
+        const twitchOptions = [
+            '-i',
+            '-',
+            '-c:v', 'libx264',
+            '-preset', 'ultrafast',
+            '-tune', 'zerolatency',
+            '-r', `${25}`,
+            '-g', `${25 * 2}`,
+            '-keyint_min', 25,
+            '-crf', '25',
+            '-pix_fmt', 'yuv420p',
+            '-sc_threshold', '0',
+            '-profile:v', 'main',
+            '-level', '3.1',
+            '-c:a', 'aac',
+            '-b:a', '128k',
+            '-ar', 128000 / 4,
+            '-f', 'flv', `rtmp://live.twitch.tv/app/${twitchKey}`
+        ];
+
         function startFfmpegProcess(options, platform) {
             let ffmpegProcess = spawn('ffmpeg', options);
 
@@ -69,11 +89,13 @@ class LiveStreaming {
 
         const ytProcess = startFfmpegProcess(ytOptions, 'YouTube');
         const fbProcess = startFfmpegProcess(fbOptions, 'Facebook');
+        const twitchProcess = startFfmpegProcess(twitchOptions, 'Twitch');
 
         io.on("connection", (socket) => {
             console.log('Socket Connected', socket.id);
             console.log("YouTube key:", ytKey);
             console.log("Facebook key:", fbKey);
+            console.log("Twitch key:", twitchKey);
 
             socket.on("binarystream", (event) => {
                 console.log("BinaryStream receiving from frontend", event);
@@ -100,6 +122,10 @@ class LiveStreaming {
 
                 if (fbKey !== "") {
                     writeStream(fbProcess, event);
+                }
+
+                if (twitchKey !== "") {
+                    writeStream(twitchProcess, event);
                 }
             });
 
@@ -155,6 +181,26 @@ class LiveStreaming {
             '-f', 'flv', `rtmp://live-api-s.facebook.com:443/rtmp/${fbKey}`
         ];
 
+        const twitchOptions = [
+            '-i',
+            '-',
+            '-c:v', 'libx264',
+            '-preset', 'ultrafast',
+            '-tune', 'zerolatency',
+            '-r', `${25}`,
+            '-g', `${25 * 2}`,
+            '-keyint_min', 25,
+            '-crf', '25',
+            '-pix_fmt', 'yuv420p',
+            '-sc_threshold', '0',
+            '-profile:v', 'main',
+            '-level', '3.1',
+            '-c:a', 'aac',
+            '-b:a', '128k',
+            '-ar', 128000 / 4,
+            '-f', 'flv', `rtmp://live.twitch.tv/app/${twitchKey}`
+        ];
+
         function startFfmpegProcess(options, platform) {
             let ffmpegProcess = spawn('ffmpeg', options);
 
@@ -185,11 +231,13 @@ class LiveStreaming {
 
         const ytProcess = startFfmpegProcess(ytOptions, 'YouTube');
         const fbProcess = startFfmpegProcess(fbOptions, 'Facebook');
+        const twitchProcess = startFfmpegProcess(twitchOptions, 'Twitch');
 
         io.on("connection", (socket) => {
             console.log('Socket Connected', socket.id);
             console.log("YouTube key:", ytKey);
             console.log("Facebook key:", fbKey);
+            console.log("Twitch key:", twitchKey);
 
             socket.on("binarystream", (event) => {
                 console.log("BinaryStream receiving from frontend", event);
@@ -199,7 +247,7 @@ class LiveStreaming {
                 }
                 
                 const writeStream = (process, event) => {
-                   if (process && process.stdin.writable && process.killed === false) {
+                    if (process && process.stdin.writable && process.killed === false) {
                         process.stdin.write(event, (err) => {
                             if (err) {
                                 console.error('Error writing to ffmpeg stdin:', err);
@@ -216,6 +264,10 @@ class LiveStreaming {
 
                 if (fbKey !== "") {
                     writeStream(fbProcess, event);
+                }
+
+                if (twitchKey !== "") {
+                    writeStream(twitchProcess, event);
                 }
             });
 
