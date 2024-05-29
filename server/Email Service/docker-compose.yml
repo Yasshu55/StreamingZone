@@ -1,14 +1,13 @@
 version: '3.8'
-
 services:
-  email-service:
+  app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     volumes:
-      - .:/app
+      - ./:/app
     ports:
-      - "8000:8000"
+      - "8080:8080"
     environment:
       - SMTP_USERNAME=ysgaming2003@gmail.com
       - SMTP_PASSWORD=lvbq koun arsl tpln

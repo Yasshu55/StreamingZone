@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/joho/godotenv"
+
 	"github.com/Shopify/sarama"
 	gomail "gopkg.in/gomail.v2"
 )
@@ -17,11 +19,18 @@ type LivestreamEvent struct {
 }
 
 func sendMail(userMail string) {
+
 	m := gomail.NewMessage()
+	// m.SetHeader("From", os.Getenv("SMTP_USERNAME"))
 	m.SetHeader("From", os.Getenv("SMTP_USERNAME"))
+	log.Printf("SMTP_USERNAME: %s", os.Getenv("SMTP_USERNAME"))
+	log.Printf("SMTP_PASSWORD: %s", os.Getenv("SMTP_PASSWORD"))
+
 	m.SetHeader("To", userMail)
-	m.SetHeader("Subject", "Test Mail from GO")
-	m.SetBody("text/plain", "This is a test email sent from a Go application.")
+	m.SetHeader("Subject", "Stream has started!")
+	m.SetBody("text/plain", "Your stream has successfully started streaming!")
+
+	// d := gomail.NewDialer("smtp.gmail.com", 587, os.Getenv("SMTP_USERNAME"), os.Getenv("SMTP_PASSWORD"))
 
 	d := gomail.NewDialer("smtp.gmail.com", 587, os.Getenv("SMTP_USERNAME"), os.Getenv("SMTP_PASSWORD"))
 
@@ -33,12 +42,15 @@ func sendMail(userMail string) {
 }
 
 func main() {
+	if err := godotenv.Load(); err != nil {
+		log.Fatalf("Error loading .env file: %v", err)
+	}
 	// Set up the Sarama configuration
 	config := sarama.NewConfig()
 	config.Consumer.Return.Errors = true
 
 	// Initialize the Sarama consumer
-	consumer, err := sarama.NewConsumer([]string{"localhost:9092"}, config)
+	consumer, err := sarama.NewConsumer([]string{"192.168.29.12:9092"}, config)
 	if err != nil {
 		log.Fatal("Error creating consumer:", err)
 	}
