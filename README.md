@@ -13,7 +13,7 @@
   <h1 align="center">Demo Video</h1>
 
 </div>
-![Next js - Google Chrome 2024-05-29 19-27-56](https://github.com/Yasshu55/StreamingZone/assets/95294297/cc12d0b7-1122-479b-8a0e-068bae3c04ba)
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/95294297/335137927-cc12d0b7-1122-479b-8a0e-068bae3c04ba.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240530%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240530T100954Z&X-Amz-Expires=300&X-Amz-Signature=5ac7eb18be6b1c4a7838f7da0e62ff92baef1deb4463e37c2458903f7b77b5c3&X-Amz-SignedHeaders=host&actor_id=95294297&key_id=0&repo_id=799974153">
 checkout full demo here - https://youtu.be/myzZmjsX87U
 
 ## Setup
