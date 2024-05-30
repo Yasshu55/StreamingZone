@@ -13,6 +13,7 @@
   <h1 align="center">Demo Video</h1>
 
 </div>
+![Next js - Google Chrome 2024-05-29 19-27-56](https://github.com/Yasshu55/StreamingZone/assets/95294297/cc12d0b7-1122-479b-8a0e-068bae3c04ba)
 checkout full demo here - https://youtu.be/myzZmjsX87U
 
 ## Setup
