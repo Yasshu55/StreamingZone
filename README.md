@@ -9,6 +9,12 @@
   - User Authentication 
   - API Gateway
 
+<div align="center">
+  <h1 align="center">Demo Video</h1>
+
+</div>
+checkout full demo here - https://youtu.be/myzZmjsX87U
+
 ## Setup
 ### Kafka setup - 
 ```
